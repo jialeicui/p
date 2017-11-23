@@ -20,4 +20,6 @@ apis.forEach(api => {
 	app.use(api.uri, api.res)
 });
 
-app.listen(7777);
+// app.listen(7777);
+
+module.exports = app;

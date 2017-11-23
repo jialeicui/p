@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>p</title>
+</head>
+<body>
+<div id="root"></div>
+<script>
+	function v(){
+		let script = document.createElement('script');
+		script.async = '';
+		script.src = `http://127.0.0.1:7777/dist/bundle.js`;
+		document.body.appendChild(script);
+	}
+	v()
+</script>
+</body>
+</html>
