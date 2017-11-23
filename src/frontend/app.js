@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 
 import Foo from './test'
+import Home from './home'
 
 class App extends Component {
 	constructor(props) {
@@ -12,7 +13,7 @@ class App extends Component {
 	}
 
 	render() {
-		return <div><Foo/></div>
+		return <div><Home/></div>
 	}
 }
 

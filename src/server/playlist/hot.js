@@ -1,6 +1,8 @@
+import express from 'express'
+import client from '../client/netease_client'
 
 module.exports = express().get('/', function (req, res) {
-	params = {
+	let params = {
 		cat: '全部',
 		order: 'hot',
 		offset: 0,

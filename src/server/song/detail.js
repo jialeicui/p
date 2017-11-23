@@ -1,3 +1,6 @@
+import express from 'express'
+import client from '../client/netease_client'
+
 module.exports = express().get('/:ids', function (req, res) {
 	const id = req.params.ids;
 	const params = {

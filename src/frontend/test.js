@@ -9,7 +9,7 @@ class Foo extends Component {
 	}
 
 	render() {
-		return <div>hahahah{this.state.text}</div>
+		return <div>{this.state.text}</div>
 	}
 }
 

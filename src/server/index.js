@@ -1,10 +1,8 @@
-express = require('express');
-client = require('./client/netease_client');
-route = express();
-
+import express from 'express'
+import client from './client/netease_client'
 
 const apis = [{
-	uri: '/playlist/hot',
+	uri: '/hot/playlist',
 	res: require('./playlist/hot')
 }, {
 	uri: '/playlist',

@@ -2,6 +2,8 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
 
+import api from './src/server/index'
+
 let win
 
 function createWindow() {
@@ -14,8 +16,10 @@ function createWindow() {
 	}))
 
 	// win.webContents.openDevTools()
+	win.setAlwaysOnTop(true, 'floating')
 }
 
+api.listen(7778)
 app.setName("ppp")
 app.on('ready', createWindow)
 
