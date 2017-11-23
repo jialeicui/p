@@ -1,6 +1,21 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 
-render(<div>vv</div>,
+import Foo from './test'
+
+class App extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+
+		}
+	}
+
+	render() {
+		return <div><Foo/></div>
+	}
+}
+
+render(<div><App/></div>,
 	document.getElementById('root')
 );

@@ -1,6 +1,17 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
+  "presets": [
+    "es2015",
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    "babel-polyfill"
+  ],
   "env": {
-    "development": {}
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
   }
 }

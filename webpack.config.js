@@ -12,7 +12,9 @@ module.exports = {
 	],
 	output: {
 		filename: 'bundle.js',
-		publicPath: 'http://localhost:7777/dist'
+		path: path.resolve(__dirname, './dist'),
+		libraryTarget: 'commonjs2',
+		publicPath: 'http://127.0.0.1:7777/dist/'
 	},
 	plugins: [
 		new webpack.HotModuleReplacementPlugin()
@@ -20,9 +22,9 @@ module.exports = {
 	module: {
 		loaders: [{
 			test: /\.js$/,
-			loaders: ['babel-loader'],
-			include: path.join(__dirname, 'src'),
-			exclude: /node_modules/,
+			loaders: ['react-hot-loader/webpack', 'babel-loader?presets[]=react'],
+			// include: path.join(__dirname, 'src'),
+			// exclude: /node_modules/,
 		}]
 	},
 	target: 'electron-renderer'

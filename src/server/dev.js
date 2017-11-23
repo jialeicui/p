@@ -24,7 +24,9 @@ app.use(
 		},
 	})
 );
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackHotMiddleware(compiler, {
+	log: console.log
+}));
 
 app.listen(7777, '127.0.0.1', err => {
 	if (err) {

@@ -14,10 +14,12 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-hot-loader": "^3.1.3",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.1",
     "webpack-dev-server": "^2.9.4",
@@ -26,7 +28,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-server": "NODE_ENV=development node -r babel-register src/server/dev",
-    "dev-ui": "./node_modules/.bin/electron -r babel-register -r babel-polyfill ./index",
+    "dev-ui": "HOT=1 NODE_ENV=development DEBUG_COLORS=true DEBUG=dev:*,-not_this ./node_modules/.bin/electron -r babel-register -r babel-polyfill ./index",
     "dev": "\"npm run dev-server\" \"npm run dev-ui\""
   },
   "repository": {
