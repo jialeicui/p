@@ -8,6 +8,9 @@ const apis = [{
 	uri: '/playlist',
 	res: require('./playlist/detail')
 }, {
+	uri: '/song/url',
+	res: require('./song/url')
+}, {
 	uri: '/song',
 	res: require('./song/detail')
 }];

@@ -6,6 +6,7 @@ class Home extends Component {
 		super(props)
 		this.state = {
 			playlists: [],
+			cursong: {},
 		}
 	}
 
@@ -17,15 +18,33 @@ class Home extends Component {
 		})
 	}
 
+	play(pid) {
+		get(`/playlist/${pid}`, {}, (r, e, b) => {
+			let playlist = JSON.parse(b)['playlist']['tracks']
+			let songId = playlist[0].id
+			get(`/song/url/${songId}`, {}, (r, e, b) => {
+				this.setState({
+					cursong: {url: JSON.parse(b)['data'][0]['url']}
+				})
+			})
+		})
+
+	}
+
 	renderPlaylists(pls) {
-		return pls.map(p=>{
-			return <li key={p.id}>{p.name} [{p.tags.join('/')}]</li>
+		return pls.map(p => {
+			return <li key={p.id}>
+				<a href="#" onClick={() => this.play(p.id)}>{p.name}</a>
+				<span>[{p.tags.join('/')}]</span>
+			</li>
 		})
 	}
 
 	render() {
-		console.log(this.state.playlists)
-		return <div>{this.renderPlaylists(this.state.playlists)}</div>
+		return <div>
+			<audio autoPlay={true} src={this.state.cursong.url}/>
+			{this.renderPlaylists(this.state.playlists)}
+		</div>
 	}
 }
 

@@ -16,7 +16,7 @@ function createWindow() {
 	}))
 
 	// win.webContents.openDevTools()
-	win.setAlwaysOnTop(true, 'floating')
+	// win.setAlwaysOnTop(true, 'floating')
 }
 
 api.listen(7778)
