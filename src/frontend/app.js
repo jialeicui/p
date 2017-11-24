@@ -1,19 +1,17 @@
-import React, {Component} from 'react';
-import {render} from 'react-dom';
+import React, {Component} from 'react'
+import {render} from 'react-dom'
 
-import Foo from './test'
-import Home from './home'
+import Route from './routes'
 
 class App extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-
-		}
 	}
 
 	render() {
-		return <div><Home/></div>
+		return <div>
+			<Route/>
+		</div>
 	}
 }
 
