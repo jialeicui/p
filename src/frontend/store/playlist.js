@@ -2,11 +2,27 @@ import {observable, action} from 'mobx'
 
 class Playlist {
 	@observable lists = []
+	@observable cur = null
+	@observable curList = []
+	@observable curPlaying = 0
 
-	@action
+	@action.bound
 	update(pls) {
-		console.log(pls)
 		this.lists = pls
+	}
+
+	@action.bound
+	select(id) {
+		this.cur = id
+	}
+
+	@action.bound
+	setCurTracks(tracks) {
+		this.curList.replace(tracks)
+	}
+	@action.bound
+	setCurPlaying(i) {
+		this.curPlaying = i
 	}
 }
 

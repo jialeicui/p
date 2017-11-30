@@ -8,7 +8,7 @@ function get(uri, params, cb) {
 		uri: uri,
 		method: 'GET',
 		qs: params
-	}, cb)
+	}, (r, e, b) => cb(JSON.parse(b)))
 }
 
 

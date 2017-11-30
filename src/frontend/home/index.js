@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {inject, observer} from 'mobx-react'
 import {get} from '../utils/request'
 
+import Progress from '../player/progress'
+
 @inject('player', 'playlist')
 
 @observer
@@ -10,23 +12,21 @@ class Home extends Component {
 		super(props)
 	}
 
-	componentWillMount(){}
-
 	componentDidMount() {
-		get('/hot/playlist', {}, (r, e, b) => {
-			this.props.playlist.update(JSON.parse(b)['playlists'])
+		get('/hot/playlist', {}, b => {
+			this.props.playlist.update(b['playlists'])
 		})
 	}
 
 	play(pid) {
-		get(`/playlist/${pid}`, {}, (r, e, b) => {
-			let playlist = JSON.parse(b)['playlist']['tracks']
+		this.props.playlist.select(pid)
+		get(`/playlist/${pid}`, {}, b => {
+			let playlist = b['playlist']['tracks']
+			this.props.playlist.setCurTracks(playlist)
 			let songId = playlist[0].id
-			get(`/song/url/${songId}`, {}, (r, e, b) => {
-				this.props.player.play({url: JSON.parse(b)['data'][0]['url']})
-			})
-			get(`/song/${songId}`, {}, (r, e, b) => {
-				// console.log(b)
+			get(`/song/url/${songId}`, {}, b => {
+				this.props.playlist.setCurPlaying(0)
+				this.props.player.play({url: b['data'][0]['url']})
 			})
 		})
 
@@ -44,6 +44,7 @@ class Home extends Component {
 	render() {
 		return <div>
 			{this.renderPlaylists(this.props.playlist.lists)}
+			<Progress/>
 		</div>
 	}
 }
