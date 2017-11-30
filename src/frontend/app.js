@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
+import {Provider} from 'mobx-react'
 
 import Route from './routes'
+import store from './store'
 
 class App extends Component {
 	constructor(props) {
@@ -9,12 +11,12 @@ class App extends Component {
 	}
 
 	render() {
-		return <div>
+		return <Provider {...store}>
 			<Route/>
-		</div>
+		</Provider>
 	}
 }
 
-render(<div><App/></div>,
+render(<App/>,
 	document.getElementById('root')
 );

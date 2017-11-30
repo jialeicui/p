@@ -7,7 +7,7 @@ import api from './src/server/index'
 let win
 
 function createWindow() {
-	win = new BrowserWindow({width: 400, height: 300})
+	win = new BrowserWindow({width: 900, height: 500})
 
 	win.loadURL(url.format({
 		pathname: path.join(__dirname, 'src/frontend/index.html'),

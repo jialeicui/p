@@ -1,20 +1,20 @@
 import React, {Component} from 'react'
+import {inject, observer} from 'mobx-react'
 import {get} from '../utils/request'
 
+@inject('player', 'playlist')
+
+@observer
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			playlists: [],
-			cursong: {},
-		}
 	}
 
-	componentDidMount(props) {
+	componentWillMount(){}
+
+	componentDidMount() {
 		get('/hot/playlist', {}, (r, e, b) => {
-			this.setState({
-				playlists: JSON.parse(b)['playlists']
-			})
+			this.props.playlist.update(JSON.parse(b)['playlists'])
 		})
 	}
 
@@ -23,9 +23,10 @@ class Home extends Component {
 			let playlist = JSON.parse(b)['playlist']['tracks']
 			let songId = playlist[0].id
 			get(`/song/url/${songId}`, {}, (r, e, b) => {
-				this.setState({
-					cursong: {url: JSON.parse(b)['data'][0]['url']}
-				})
+				this.props.player.play({url: JSON.parse(b)['data'][0]['url']})
+			})
+			get(`/song/${songId}`, {}, (r, e, b) => {
+				// console.log(b)
 			})
 		})
 
@@ -42,8 +43,7 @@ class Home extends Component {
 
 	render() {
 		return <div>
-			<audio autoPlay={true} src={this.state.cursong.url}/>
-			{this.renderPlaylists(this.state.playlists)}
+			{this.renderPlaylists(this.props.playlist.lists)}
 		</div>
 	}
 }
