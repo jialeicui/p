@@ -27,5 +27,12 @@ module.exports = {
 			// exclude: /node_modules/,
 		}]
 	},
-	target: 'electron-renderer'
+	target: 'electron-renderer',
+	resolve: {
+		extensions: ['.js', '.jsx'],
+		alias: {
+			utils: path.join(__dirname, './src/frontend/utils'),
+			stores: path.join(__dirname, './src/frontend/store'),
+		},
+	}
 }

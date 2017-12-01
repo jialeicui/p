@@ -13,23 +13,12 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-		get('/hot/playlist', {}, b => {
-			this.props.playlist.update(b['playlists'])
-		})
+		this.props.playlist.loadHotPlaylists()
 	}
 
 	play(pid) {
-		this.props.playlist.select(pid)
-		get(`/playlist/${pid}`, {}, b => {
-			let playlist = b['playlist']['tracks']
-			this.props.playlist.setCurTracks(playlist)
-			let songId = playlist[0].id
-			get(`/song/url/${songId}`, {}, b => {
-				this.props.playlist.setCurPlaying(0)
-				this.props.player.play({url: b['data'][0]['url']})
-			})
-		})
-
+		const {playlist} = this.props
+		playlist.playThisList(pid)
 	}
 
 	renderPlaylists(pls) {
