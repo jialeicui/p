@@ -1,6 +1,7 @@
-const {app, BrowserWindow} = require('electron');
-const path = require('path');
-const url = require('url');
+const {app, BrowserWindow, ipcMain} = require('electron')
+const path = require('path')
+const url = require('url')
+const like = require('./src/local/like')
 
 import api from './src/server/index'
 
@@ -17,6 +18,24 @@ function createWindow() {
 
 	// win.webContents.openDevTools()
 	// win.setAlwaysOnTop(true, 'floating')
+
+	ipcMain.on('local', (evt, args) => {
+		console.log(args)
+		switch (args.action) {
+			case 'loadLikes':
+				evt.returnValue = like.loadLikes()
+				break
+			case 'loadHates':
+				evt.returnValue = like.loadHates()
+				break
+			case 'saveLikes':
+				like.saveLikes(args.data)
+				break
+			case 'saveHates':
+				like.saveHates(args.data)
+				break
+		}
+	})
 }
 
 api.listen(7778)

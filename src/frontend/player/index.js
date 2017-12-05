@@ -8,8 +8,8 @@ import {inject, observer} from 'mobx-react'
 		console.log(nextProps)
 	}
 
-	progressChange(a, b) {
-		console.log(a)
+	progressChange(a) {
+		// console.log(a)
 	}
 
 	timeUpdate(e) {

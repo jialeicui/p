@@ -6,6 +6,12 @@ class Playlist {
 	@observable cur = null
 	@observable curList = {}
 	@observable curPlaying = 0
+	@observable song = null
+
+	constructor(song) {
+		this.song = song
+		this.song.regHook(()=>this.playNext())
+	}
 
 	@action.bound
 	select(id) {
@@ -39,8 +45,10 @@ class Playlist {
 	}
 
 	async getSongDetail(id) {
-		let resp = await get(`/song/${id}`)
-		console.log(resp)
+		let resp = await get(`/song/url/${id}`)
+
+		this.song.play(resp.data[0])
+
 	}
 
 	@action
@@ -57,11 +65,10 @@ class Playlist {
 	}
 
 	@action
-	playThisList(id) {
-		const {trackIds} = this.loadPlaylist(id)
-		console.log(trackIds)
+	async playThisList(id) {
+		await this.loadPlaylist(id)
 		this.playNext(true)
 	}
 }
 
-export default new Playlist()
+export default Playlist

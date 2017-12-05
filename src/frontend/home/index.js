@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {inject, observer} from 'mobx-react'
-import {get} from '../utils/request'
 
 import Progress from '../player/progress'
 
@@ -13,6 +12,10 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
+		this.props.playlist.loadHotPlaylists()
+	}
+
+	componentWillReceiveProps(nextProps) {
 		this.props.playlist.loadHotPlaylists()
 	}
 

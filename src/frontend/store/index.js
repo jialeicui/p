@@ -1,4 +1,8 @@
 import player from './player'
-import playlist from './playlist'
+import pl from './playlist'
+import Likes from './likes'
 
-export default {player, playlist}
+const playlist = new pl(player)
+const likes = new Likes()
+
+export default {player, playlist, likes}

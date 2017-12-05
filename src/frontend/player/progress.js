@@ -1,22 +1,22 @@
 import React from 'react'
 import {inject, observer} from 'mobx-react'
-import {get} from "../utils/request";
 
-@inject("player", 'playlist')
+@inject("player", 'playlist', 'likes')
 
 @observer
 class Progress extends React.Component {
 	playNext() {
-		const {curList, curPlaying} = this.props.playlist
-		if (curPlaying >= curList.length) {
-			return
-		}
+		this.props.playlist.playNext()
+	}
 
-		let id = curList[curPlaying+1].id
-		get(`/song/url/${id}`, {}, b => {
-			this.props.playlist.setCurPlaying(curPlaying+1)
-			this.props.player.play({url: b['data'][0]['url']})
-		})
+	playOrPause() {
+
+	}
+
+	like() {
+		const {id} = this.props.player.song
+		console.log('add', id, this.props.player.song)
+		this.props.likes.addLikes(id)
 	}
 
 	render() {
@@ -31,8 +31,10 @@ class Progress extends React.Component {
 				onChange={null}
 			/>
 			<button>pre</button>
-			<button>play</button>
+			<button onClick={this.playOrPause.bind(this)}>play</button>
 			<button onClick={this.playNext.bind(this)}>next</button>
+			<button onClick={this.like.bind(this)}>like</button>
+			<div>{JSON.stringify(this.props.player.detail)}</div>
 		</div>
 	}
 }
