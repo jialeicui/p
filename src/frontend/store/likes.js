@@ -1,9 +1,9 @@
 import {ipcRenderer} from 'electron'
-import {observable, action} from 'mobx'
+import {observable, action, computed} from 'mobx'
 
 class Likes {
-	@observable likes = []
-	@observable hates = []
+	@observable likes = {}
+	@observable hates = {}
 
 	constructor() {
 		ipcRenderer.send('local', {action: 'loadLikes'})
@@ -29,16 +29,19 @@ class Likes {
 	}
 
 	@action.bound
-	addLikes(id) {
-		this.likes.push(id)
-		console.log(this.likes.slice())
-		ipcRenderer.send('local', {action: 'saveLikes', data: this.likes.slice()})
+	addLikes(id, score) {
+		this.likes[id] = {...this.likes[id], score}
+		ipcRenderer.send('local', {action: 'saveLikes', data: this.likes})
 	}
 
 	@action
 	addHates(id) {
-		this.hates.push(id)
 		ipcRenderer.send('local', {action: 'saveHates', data: this.hates})
+	}
+
+	@computed
+	isLiked(id) {
+		return (id in this.likes)
 	}
 }
 
