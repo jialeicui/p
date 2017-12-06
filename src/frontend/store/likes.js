@@ -6,8 +6,16 @@ class Likes {
 	@observable hates = []
 
 	constructor() {
-		this.likes = ipcRenderer.send('local', {action: 'loadLikes'}) || []
-		this.hates = ipcRenderer.send('local', {action: 'loadhates'}) || []
+		ipcRenderer.send('local', {action: 'loadLikes'})
+		ipcRenderer.send('local', {action: 'loadhates'})
+
+		ipcRenderer.on('like-reply', (evt, arg) => {
+			this.likes.replace(arg)
+		})
+
+		ipcRenderer.on('hate-reply', (evt, arg) => {
+			this.hates.replace(arg)
+		})
 	}
 
 	@action

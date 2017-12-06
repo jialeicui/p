@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, ipcRenderer} = require('electron')
 const path = require('path')
 const url = require('url')
 const like = require('./src/local/like')
@@ -23,10 +23,10 @@ function createWindow() {
 		console.log(args)
 		switch (args.action) {
 			case 'loadLikes':
-				evt.returnValue = like.loadLikes()
+				evt.sender.send('like-reply', like.loadLikes())
 				break
 			case 'loadHates':
-				evt.returnValue = like.loadHates()
+				evt.sender.send('hate-reply', like.loadHates())
 				break
 			case 'saveLikes':
 				like.saveLikes(args.data)

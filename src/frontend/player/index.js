@@ -1,9 +1,11 @@
 'use strict'
 import React from 'react'
 import {inject, observer} from 'mobx-react'
+import {ipcRenderer} from 'electron'
 
-@inject('player')
-@observer class Player extends React.Component {
+@inject('player', 'likes')
+@observer
+class Player extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		console.log(nextProps)
 	}
